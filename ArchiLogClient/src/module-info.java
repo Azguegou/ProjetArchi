@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author Mehdi
+ *
+ */
+module ArchiLogClient {
+}
