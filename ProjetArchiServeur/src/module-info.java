@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Mehdi
- *
- */
-module ProjetArchiServeur {
-}
