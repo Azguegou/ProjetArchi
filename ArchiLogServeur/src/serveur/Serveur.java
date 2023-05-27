@@ -31,19 +31,23 @@ public class Serveur implements Runnable {
 		catch(IOException e) {
 			try {
 				this.listen_socket_res.close();
+				this.listen_socket_emp.close();
+				this.listen_socket_ret.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		System.err.println("Arret du serveur au port " + this.listen_socket_res.getLocalPort());
-		System.err.println("Arret du serveur au port " + this.listen_socket_res.getLocalPort());
+		System.err.println("Arret du serveur au port " + this.listen_socket_emp.getLocalPort());
 		System.err.println("Arret du serveur au port " + this.listen_socket_ret.getLocalPort());
 	}
 
 	protected void finalize() throws Throwable {
 		try {
 			this.listen_socket_res.close();
+			this.listen_socket_emp.close();
+			this.listen_socket_ret.close();
 		} catch (IOException e1) {
 		}
 	}
