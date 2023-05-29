@@ -11,9 +11,9 @@ import serveur.ServeurReservation;
 import serveur.ServeurRetour;
 
 public class Appli {
-	static int PORT_RESERVATION = 1000; 
-	static int PORT_EMPRUNT = 1001;
-	static int PORT_RETOUR = 1002;
+	final static int PORT_RESERVATION = 1000; 
+	final static int PORT_EMPRUNT = 1001;
+	final static int PORT_RETOUR = 1002;
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
