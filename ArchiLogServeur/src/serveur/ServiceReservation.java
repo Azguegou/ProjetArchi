@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import connect.BDD;
 
 public class ServiceReservation implements Runnable {
-
+	private Socket client;
 	
 	public ServiceReservation(Socket socket) {
-		// TODO Auto-generated constructor stub
+		this.client = socket;
 	}
 
 	@Override

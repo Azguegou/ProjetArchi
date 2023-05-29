@@ -6,7 +6,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import connect.BDD;
-import serveur.Serveur;
+import serveur.ServeurEmprunt;
+import serveur.ServeurReservation;
+import serveur.ServeurRetour;
 
 public class Appli {
 	static int PORT_RESERVATION = 1000; 
@@ -16,12 +18,11 @@ public class Appli {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
-		new Thread(new Serveur(PORT_RESERVATION, PORT_EMPRUNT, PORT_RETOUR)).start();
-		
-		
-		BDD.openConnection("jdbc:mysql://localhost:3306/mediatheque", "root", "");
-		
-		BDD.closeConnection();
+		Connection conn = BDD.getConnection();
+		new Thread(new ServeurReservation(PORT_RESERVATION)).start();
+		new Thread(new ServeurEmprunt(PORT_EMPRUNT)).start();
+		new Thread(new ServeurRetour(PORT_RETOUR)).start();
+		System.out.println(conn.getCatalog());
 		
 	}
 

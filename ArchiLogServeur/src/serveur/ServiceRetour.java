@@ -4,8 +4,10 @@ import java.net.Socket;
 
 public class ServiceRetour implements Runnable {
 
+	private Socket client;
+
 	public ServiceRetour(Socket socket) {
-		// TODO Auto-generated constructor stub
+		this.client = socket;
 	}
 
 	@Override

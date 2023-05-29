@@ -4,22 +4,24 @@ import java.sql.*;
 
 public class BDD {
 	private static Connection conn = null;
+	private static final String url;
+	private static final String user;
+	private static final String passwd;
+	
+	static {
+		url = "jdbc:mysql://localhost:3306/mediatheque";
+		user = "root";
+		passwd = "";
+	}
 	
 	
-	public static void openConnection(String url, String user, String passwd) throws SQLException {
-		try {
-			conn = DriverManager.getConnection(url, user, passwd);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			conn.close();
+	public static Connection getConnection() throws SQLException {
+		if(conn != null) {
+			return conn;
 		}
-	}
-	
-	public static void closeConnection() throws SQLException {
-		conn.close();
-	}
-	
-	public static void statement(String str) throws SQLException {
-		Statement stmt = conn.createStatement();
+		else {
+			conn = DriverManager.getConnection(url, user, passwd);
+			return conn;
+		}
 	}
 }
