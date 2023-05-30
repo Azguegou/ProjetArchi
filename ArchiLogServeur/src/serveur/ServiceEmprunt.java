@@ -10,12 +10,10 @@ import java.sql.SQLException;
 
 import connect.BDD;
 
-public class ServiceEmprunt implements Runnable {
-
-	private Socket client;
+public class ServiceEmprunt extends Service {
 	
 	public ServiceEmprunt(Socket socket) {
-		this.client = socket;
+		super(socket);
 	}
 
 	@Override
@@ -23,14 +21,8 @@ public class ServiceEmprunt implements Runnable {
 		
 		try {
 			
-			try {
-				Connection conn = BDD.getConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			PrintStream out = new PrintStream(client.getOutputStream());
+			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 		}
 		catch(IOException e) {}
 		

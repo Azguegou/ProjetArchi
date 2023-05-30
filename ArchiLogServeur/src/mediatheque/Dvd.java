@@ -2,10 +2,16 @@ package mediatheque;
 
 public class Dvd implements Document {
 
+	private int numeroDoc;
+
+	public Dvd(int numero, String titre, boolean adulte) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int numero() {
 		// TODO Auto-generated method stub
-		return 0;
+		return numeroDoc;
 	}
 
 	@Override

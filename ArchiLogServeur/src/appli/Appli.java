@@ -2,13 +2,20 @@ package appli;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import connect.BDD;
-import serveur.ServeurEmprunt;
-import serveur.ServeurReservation;
-import serveur.ServeurRetour;
+import serveur.Serveur;
+import serveur.ServiceEmprunt;
+import serveur.ServiceReservation;
+import serveur.ServiceRetour;
+import mediatheque.Abonne;
+import mediatheque.Document;
+import mediatheque.Dvd;
 
 public class Appli {
 	final static int PORT_RESERVATION = 1000; 
@@ -18,12 +25,38 @@ public class Appli {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
+		ArrayList<Document> docs = new ArrayList<>();
+		ArrayList<Abonne> abos = new ArrayList<>();
 		Connection conn = BDD.getConnection();
-		new Thread(new ServeurReservation(PORT_RESERVATION)).start();
-		new Thread(new ServeurEmprunt(PORT_EMPRUNT)).start();
-		new Thread(new ServeurRetour(PORT_RETOUR)).start();
+		new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
+		new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
+		new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
 		System.out.println(conn.getCatalog());
 		
+		Statement stmt = conn.createStatement();
+		String rStr = "SELECT * FROM abonne";
+		String rStr_2 = "SELECT * FROM dvd";
+		PreparedStatement requ2 = conn.prepareStatement(rStr);
+		PreparedStatement requ3 = conn.prepareStatement(rStr_2);
+		
+		ResultSet rs = requ2.executeQuery();
+		ResultSet rs_1 = requ3.executeQuery();
+		while(rs.next()) {
+			System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getDate(3));
+			abos.add(new Abonne(rs.getInt(1), rs.getString(2), rs.getDate(3)));
+		}
+		
+		while(rs_1.next()) {
+			System.out.println(rs_1.getInt(1) + " " + rs_1.getString(2) + " " + rs_1.getBoolean(3));
+			docs.add(new Dvd(rs_1.getInt(1), rs_1.getString(2), rs_1.getBoolean(3)));	
+		}
+		
+		System.out.println(docs);
+		
+		requ2.close();
+		requ3.close();
+		stmt.close();
+		conn.close();
 	}
 
 }

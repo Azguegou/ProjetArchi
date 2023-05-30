@@ -5,11 +5,10 @@ import java.sql.SQLException;
 
 import connect.BDD;
 
-public class ServiceReservation implements Runnable {
-	private Socket client;
+public class ServiceReservation extends Service {
 	
 	public ServiceReservation(Socket socket) {
-		this.client = socket;
+		super(socket);
 	}
 
 	@Override
