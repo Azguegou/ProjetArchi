@@ -9,13 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import connect.BDD;
+import mediatheque.Abonne;
+import mediatheque.Document;
+import mediatheque.Dvd;
 import serveur.Serveur;
 import serveur.ServiceEmprunt;
 import serveur.ServiceReservation;
 import serveur.ServiceRetour;
-import mediatheque.Abonne;
-import mediatheque.Document;
-import mediatheque.Dvd;
 
 public class Appli {
 	final static int PORT_RESERVATION = 1000; 
@@ -28,11 +28,6 @@ public class Appli {
 		ArrayList<Document> docs = new ArrayList<>();
 		ArrayList<Abonne> abos = new ArrayList<>();
 		Connection conn = BDD.getConnection();
-		new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
-		new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
-		new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
-		System.out.println(conn.getCatalog());
-		
 		Statement stmt = conn.createStatement();
 		String rStr = "SELECT * FROM abonne";
 		String rStr_2 = "SELECT * FROM dvd";
@@ -51,12 +46,18 @@ public class Appli {
 			docs.add(new Dvd(rs_1.getInt(1), rs_1.getString(2), rs_1.getBoolean(3)));	
 		}
 		
-		System.out.println(docs);
-		
 		requ2.close();
 		requ3.close();
 		stmt.close();
 		conn.close();
+		
+		
+		new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
+		new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
+		new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
+		System.out.println(conn.getCatalog());
+		
+		
 	}
 
 }

@@ -19,6 +19,8 @@ public class ServiceRetour extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
+			out.println("Sélectionnez un DVD à rendre : ");
+			int numeroDoc = Integer.parseInt(in.readLine());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

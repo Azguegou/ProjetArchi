@@ -23,6 +23,8 @@ public class ServiceEmprunt extends Service {
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
+			
+			int numeroDoc = Integer.parseInt(in.readLine());
 		}
 		catch(IOException e) {}
 		

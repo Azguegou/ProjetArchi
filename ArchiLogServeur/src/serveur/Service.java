@@ -1,5 +1,6 @@
 package serveur;
 
+import java.io.IOException;
 import java.net.Socket;
 
 public abstract class Service implements Runnable{
@@ -14,5 +15,9 @@ public abstract class Service implements Runnable{
 	
 	public Socket getSocket() {
 		return client;
+	}
+	
+	protected void finalize() throws IOException {
+		this.client.close();
 	}
 }
