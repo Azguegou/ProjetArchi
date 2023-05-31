@@ -28,6 +28,7 @@ public class ServiceReservation extends Service {
 			out.println("Entrez le numéro de document voulu : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
+			System.out.println("Requête du client " + this.getSocket().getInetAddress() + " à traiter");
 		}
 		catch(IOException e) {}
 	}
