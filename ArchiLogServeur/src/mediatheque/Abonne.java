@@ -4,15 +4,21 @@ import java.sql.Date;
 
 public class Abonne {
 
-	private int numero;
-
+	public int id;
+	
+	public String nom;
+	
+	public Date date;
+	
 	public Abonne(int numero, String nom, Date date) {
-		// TODO Auto-generated constructor stub
+		this.id = numero;
+		this.nom = nom;
+		this.date = date;
 	}
 
 	public int getNumeroAbo() {
 		// TODO Auto-generated method stub
-		return numero;
+		return this.id;
 	}
 
 }

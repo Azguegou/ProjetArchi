@@ -3,20 +3,30 @@ package mediatheque;
 public class Dvd implements Document {
 
 	private int numeroDoc;
+	
+	private String titre;
+	
+	private boolean adultFilm;
 
+	public Dvd(int numero) {
+		this.numeroDoc = numero;
+		this.titre = "";
+		this.adultFilm = false;
+	}
+	
 	public Dvd(int numero, String titre, boolean adulte) {
-		// TODO Auto-generated constructor stub
+		this.numeroDoc = numero;
+		this.titre = titre;
+		this.adultFilm = adulte;
 	}
 
 	@Override
 	public int numero() {
-		// TODO Auto-generated method stub
 		return numeroDoc;
 	}
 
 	@Override
 	public void retour() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -31,15 +41,19 @@ public class Dvd implements Document {
 	}
 
 	@Override
-	public void reservation(Abonne ab) {
-		// TODO Auto-generated method stub
-		
+	public void reservation(Abonne ab) {		
 	}
 
 	@Override
-	public void emprunt(Abonne ab) {
-		// TODO Auto-generated method stub
-		
+	public void emprunt(Abonne ab) {		
+	}
+	
+	public String getTitre() {
+		return this.titre;
+	}
+	
+	public boolean isAdult() {
+		return this.adultFilm;
 	}
 
 }
