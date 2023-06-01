@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import connect.BDD;
+import mediatheque.Abonne;
+import mediatheque.Document;
 
 public class ServiceReservation extends Service {
 	
@@ -18,6 +20,7 @@ public class ServiceReservation extends Service {
 
 	@Override
 	public void run() {
+		String reponse = null;
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
@@ -28,7 +31,20 @@ public class ServiceReservation extends Service {
 			out.println("Entrez le numero de document voulu : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
-			System.out.println("Requete du client " + this.getSocket().getInetAddress() + " a�traiter");
+			Abonne abo = this.getAbonne(numeroAbo);
+			Document doc = this.getDocument(numeroDoc);
+			
+			if(abo != null) {
+				if(doc != null) {
+					//Appeler la méthode réservation --> ajout à la liste de réservation + requête SQL pour actualiser la BDD
+				}
+				else {
+					reponse = "Document non disponible";
+				}
+			}
+			else {
+				reponse = "Abonné non existant";
+			}
 		}
 		catch(IOException e) {}
 	}

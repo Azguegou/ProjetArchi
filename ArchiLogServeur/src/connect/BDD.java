@@ -24,4 +24,15 @@ public class BDD {
 			return conn;
 		}
 	}
+	
+	public static ResultSet openStatement(String query) throws SQLException {
+		PreparedStatement pstmt = conn.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery();
+		return rs;
+	}
+	
+	public static void close(ResultSet rs) throws SQLException {
+		rs.close();
+	}
+	
 }

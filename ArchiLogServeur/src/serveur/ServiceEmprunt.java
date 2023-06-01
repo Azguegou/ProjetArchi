@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import connect.BDD;
+import mediatheque.Abonne;
+import mediatheque.Document;
 
 public class ServiceEmprunt extends Service {
 	
@@ -18,17 +20,32 @@ public class ServiceEmprunt extends Service {
 
 	@Override
 	public void run() {
-		
+		String reponse = null;
 		try {
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
-			out.println("Entrez votre numéro d'abonné : ");
+			out.println("Entrez votre numï¿½ro d'abonnï¿½ : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
 			
-			out.println("Entrez le numéro du document à réserver : ");
-			int numerroDoc = Integer.parseInt(in.readLine());
+			out.println("Entrez le numÃ©ro du document Ã  rÃ©server : ");
+			int numeroDoc = Integer.parseInt(in.readLine());
+			
+			Abonne abo = this.getAbonne(numeroAbo);
+			Document doc = this.getDocument(numeroDoc);
+			
+			if(abo != null) {
+				if(doc != null) {
+					doc.emprunt(abo);
+				}
+				else {
+					reponse = "Document non existant";
+				}
+			}
+			else {
+				reponse = "Cours non existant";
+			}
 		}
 		catch(IOException e) {}
 		
