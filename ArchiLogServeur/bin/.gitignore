@@ -1,3 +1,10 @@
 /appli/
+<<<<<<< Updated upstream
 /serveur/
 /mediatheque/
+=======
+/connect/
+/mediatheque/
+/module-info.class
+/serveur/
+>>>>>>> Stashed changes

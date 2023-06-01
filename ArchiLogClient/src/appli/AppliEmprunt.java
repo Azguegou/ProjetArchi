@@ -18,8 +18,12 @@ public class AppliEmprunt {
 		BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream()));
 		PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
 		
+<<<<<<< HEAD
 		System.out.println("Connecté au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
 		
 		sout.println("");
+=======
+		System.out.println("Connecte au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
+>>>>>>> 9d245e3d41f85d4dd5f7eacdfaf94b5269360c59
 	}
 }
