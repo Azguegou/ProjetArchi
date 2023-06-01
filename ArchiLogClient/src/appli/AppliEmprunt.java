@@ -19,5 +19,7 @@ public class AppliEmprunt {
 		PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
 		
 		System.out.println("Connecté au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
+		
+		sout.println("");
 	}
 }

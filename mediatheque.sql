@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 30 mai 2023 à 21:50
+-- Généré le : jeu. 01 juin 2023 à 08:00
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `mediatheque`
 --
+CREATE DATABASE IF NOT EXISTS `mediatheque` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `mediatheque`;
 
 -- --------------------------------------------------------
 
@@ -71,6 +73,20 @@ INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(5, 'Angry Birds', 0);
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `emprunt`
+--
+
+DROP TABLE IF EXISTS `emprunt`;
+CREATE TABLE IF NOT EXISTS `emprunt` (
+  `numeroAbo` int NOT NULL,
+  `numeroDoc` int NOT NULL,
+  PRIMARY KEY (`numeroAbo`,`numeroDoc`),
+  KEY `FK_emprunt_doc` (`numeroDoc`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `reservation`
 --
 
@@ -86,6 +102,15 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `emprunt`
+--
+ALTER TABLE `emprunt`
+  ADD CONSTRAINT `emprunt_ibfk_1` FOREIGN KEY (`numeroAbo`) REFERENCES `abonne` (`numeroAbo`),
+  ADD CONSTRAINT `emprunt_ibfk_2` FOREIGN KEY (`numeroDoc`) REFERENCES `dvd` (`numeroDoc`),
+  ADD CONSTRAINT `emprunt_ibfk_3` FOREIGN KEY (`numeroAbo`) REFERENCES `abonne` (`numeroAbo`),
+  ADD CONSTRAINT `emprunt_ibfk_4` FOREIGN KEY (`numeroAbo`) REFERENCES `abonne` (`numeroAbo`);
 
 --
 -- Contraintes pour la table `reservation`
