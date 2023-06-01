@@ -13,6 +13,7 @@ import mediatheque.Abonne;
 import mediatheque.Document;
 import mediatheque.Dvd;
 import serveur.Serveur;
+import serveur.Service;
 import serveur.ServiceEmprunt;
 import serveur.ServiceReservation;
 import serveur.ServiceRetour;
@@ -46,6 +47,9 @@ public class Appli {
 			docs.add(new Dvd(rs_1.getInt(1), rs_1.getString(2), rs_1.getBoolean(3)));	
 		}
 		
+		Service.setLesDocs(docs);
+		Service.setLesAbos(abos);
+		
 		requ2.close();
 		requ3.close();
 		stmt.close();
@@ -55,7 +59,7 @@ public class Appli {
 		new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
 		new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
 		new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
-		System.out.println(conn.getCatalog());
+		//System.out.println(conn.getCatalog());
 		
 		
 	}

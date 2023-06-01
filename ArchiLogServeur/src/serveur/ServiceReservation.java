@@ -22,15 +22,17 @@ public class ServiceReservation extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
-			out.println("Entrez votre numéro d'abonné : ");
+			out.println("Entrez votre numero d'abonne : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
 			
-			out.println("Entrez le numéro de document voulu : ");
+			out.println("Entrez le numero de document voulu : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
-			System.out.println("Requête du client " + this.getSocket().getInetAddress() + " à traiter");
+			System.out.println("Requete du client " + this.getSocket().getInetAddress() + " a�traiter");
 		}
 		catch(IOException e) {}
 	}
+	
+	
 
 }

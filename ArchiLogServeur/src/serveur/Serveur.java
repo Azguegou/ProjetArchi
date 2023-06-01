@@ -5,6 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketImpl;
+import java.util.List;
+
+import mediatheque.Abonne;
+import mediatheque.Document;
 
 public class Serveur implements Runnable {
 	
@@ -37,6 +41,10 @@ public class Serveur implements Runnable {
 			}
 		}
 		System.err.println("Arret du serveur au port " + this.listen_socket.getLocalPort());
+	}
+	
+	public void setLesDocuments() {
+		
 	}
 
 	protected void finalize() throws Throwable {
