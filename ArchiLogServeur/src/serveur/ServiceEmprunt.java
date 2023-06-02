@@ -26,10 +26,10 @@ public class ServiceEmprunt extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
-			out.println("Entrez votre num�ro d'abonn� : ");
+			out.println("Entrez votre numero d'abonne : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
 			
-			out.println("Entrez le numéro du document à réserver : ");
+			out.println("Entrez le numero du document a� reserver : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
 			Abonne abo = this.getAbonne(numeroAbo);
@@ -44,8 +44,10 @@ public class ServiceEmprunt extends Service {
 				}
 			}
 			else {
-				reponse = "Cours non existant";
+				reponse = "Abonne inexistant";
 			}
+			System.out.println(reponse);
+			out.println(reponse);
 		}
 		catch(IOException e) {}
 		

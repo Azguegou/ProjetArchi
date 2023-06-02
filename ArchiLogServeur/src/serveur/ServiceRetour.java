@@ -22,13 +22,13 @@ public class ServiceRetour extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
-			out.println("Sélectionnez un DVD à rendre : ");
+			out.println("Selectionnez un DVD a� rendre : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
 			Document doc = this.getDocument(numeroDoc);
 			
 			if(doc != null) {
-				//renvoyer ce document dans la liste --> méthode à coder dans DVD
+				//renvoyer ce document dans la liste --> methode a�coder dans DVD : retour()
 				doc.retour();
 			}
 			else {

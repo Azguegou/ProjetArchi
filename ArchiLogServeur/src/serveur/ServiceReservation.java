@@ -36,14 +36,14 @@ public class ServiceReservation extends Service {
 			
 			if(abo != null) {
 				if(doc != null) {
-					//Appeler la méthode réservation --> ajout à la liste de réservation + requête SQL pour actualiser la BDD
+					//Appeler la methode reservation --> ajout à la liste de reservation + requete SQL pour actualiser la BDD
 				}
 				else {
 					reponse = "Document non disponible";
 				}
 			}
 			else {
-				reponse = "Abonné non existant";
+				reponse = "Abonne non existant";
 			}
 		}
 		catch(IOException e) {}
