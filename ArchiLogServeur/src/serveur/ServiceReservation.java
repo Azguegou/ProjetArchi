@@ -22,20 +22,23 @@ public class ServiceReservation extends Service {
 	public void run() {
 		String reponse = null;
 		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			//note : ne pas oublier le getInputStream
+			BufferedReader in = new BufferedReader(new InputStreamReader(this.getSocket().getInputStream()));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
+			StringBuilder sb = new StringBuilder();
 			for(Document doc : this.getDocuments()) {
-				System.out.println(doc.toString());
+				sb.append(doc.toString());
 			}
+			out.println(sb.toString());
 			
 			out.println("Entrez votre numero d'abonne : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
+			Abonne abo = this.getAbonne(numeroAbo);
 			
 			out.println("Entrez le numero de document voulu : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
-			Abonne abo = this.getAbonne(numeroAbo);
 			Document doc = this.getDocument(numeroDoc);
 			
 			if(abo != null) {
