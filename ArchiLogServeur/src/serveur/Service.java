@@ -33,6 +33,10 @@ public abstract class Service implements Runnable{
 		return null;
 	}
 	
+	public List<Document> getDocuments() {
+		return docs;
+	}
+	
 	public Abonne getAbonne(int numeroAbo) {
 		for(Abonne abo : abos) {
 			if(abo.getNumeroAbo() == numeroAbo) {
