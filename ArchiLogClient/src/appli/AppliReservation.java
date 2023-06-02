@@ -9,7 +9,7 @@ import java.net.Socket;
 public class AppliReservation {
 	
 	private final static String HOST = "localhost";
-	private final static int PORT_RESERVATION = 1002;
+	private final static int PORT_RESERVATION = 1000;
 	public static void main(String[] args) {
 		BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -22,17 +22,22 @@ public class AppliReservation {
 			
 			System.out.println("Connecte au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
 			
-			String line = sin.readLine();
+			System.out.println(sin.readLine());
+		
+			String line;
+			line = sin.readLine();
 			System.out.println(line);
 			
+			//Numero d'abonné
 			line = clavier.readLine();
 			sout.println(line);
 			
 			line = sin.readLine();
 			System.out.println(line);
 			
+			//Numéro de document
 			line = clavier.readLine();
-			sout.println();
+			sout.println(line);
 			
 			System.out.println(sin.readLine());
 			socket.close();

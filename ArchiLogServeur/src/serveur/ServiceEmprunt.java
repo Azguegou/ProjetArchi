@@ -24,7 +24,7 @@ public class ServiceEmprunt extends Service {
 		String reponse = null;
 		try {
 			
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader in = new BufferedReader(new InputStreamReader(this.getSocket().getInputStream()));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
 			out.println("Entrez votre numero d'abonne : ");
