@@ -25,6 +25,10 @@ public class ServiceReservation extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			
+			for(Document doc : this.getDocuments()) {
+				System.out.println(doc.toString());
+			}
+			
 			out.println("Entrez votre numero d'abonne : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
 			

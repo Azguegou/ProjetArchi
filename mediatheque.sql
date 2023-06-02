@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 01 juin 2023 à 08:00
+-- Généré le : ven. 02 juin 2023 à 12:44
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `mediatheque`
 --
-CREATE DATABASE IF NOT EXISTS `mediatheque` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `mediatheque`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `abonne` (
 -- Déchargement des données de la table `abonne`
 --
 
-INSERT INTO `abonne` (`numeroAbo`, `nom`, `dateNaiss`) VALUES(1, 'Leonard', '2000-12-25');
+INSERT INTO `abonne` (`numeroAbo`, `nom`, `dateNaiss`) VALUES(1, 'Leonard', '2014-12-25');
 INSERT INTO `abonne` (`numeroAbo`, `nom`, `dateNaiss`) VALUES(2, 'Marie', '2004-09-30');
 INSERT INTO `abonne` (`numeroAbo`, `nom`, `dateNaiss`) VALUES(3, 'Bernard', '1999-05-13');
 INSERT INTO `abonne` (`numeroAbo`, `nom`, `dateNaiss`) VALUES(4, 'Torvald', '1966-05-07');
@@ -67,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `dvd` (
 INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(1, 'Documentaire Leonard de Vinci', 0);
 INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(2, 'Massacre à la tronçonneuse', 1);
 INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(3, 'Comment dompter votre dragon ?', 0);
-INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(4, 'Saw V', 1);
+INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(4, 'Saw VI', 1);
 INSERT INTO `dvd` (`numeroDoc`, `titre`, `adulte`) VALUES(5, 'Angry Birds', 0);
 
 -- --------------------------------------------------------
