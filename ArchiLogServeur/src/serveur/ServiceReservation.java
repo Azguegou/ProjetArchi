@@ -44,6 +44,7 @@ public class ServiceReservation extends Service {
 			if(abo != null) {
 				if(doc != null) {
 					//Appeler la methode reservation --> ajout à la liste de reservation + requete SQL pour actualiser la BDD
+					reponse = "Reservation reussie";
 				}
 				else {
 					reponse = "Document non disponible";
@@ -52,6 +53,8 @@ public class ServiceReservation extends Service {
 			else {
 				reponse = "Abonne non existant";
 			}
+			out.println(reponse);
+			
 		}
 		catch(IOException e) {}
 	}
