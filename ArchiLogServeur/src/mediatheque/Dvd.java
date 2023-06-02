@@ -52,6 +52,13 @@ public class Dvd implements Document {
 		return this.titre;
 	}
 	
+	public String toString() {
+		String str = "Numero de document : " + this.numeroDoc + ", titre : " + this.titre + ", catégorie adulte ? : ";
+		if(this.adultFilm) str += " Oui";
+		else str += " Non";
+		return str;
+	}
+	
 	public boolean isAdult() {
 		return this.adultFilm;
 	}
