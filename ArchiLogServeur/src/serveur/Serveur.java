@@ -42,10 +42,6 @@ public class Serveur implements Runnable {
 		}
 		System.err.println("Arret du serveur au port " + this.listen_socket.getLocalPort());
 	}
-	
-	public void setLesDocuments() {
-		
-	}
 
 	protected void finalize() throws Throwable {
 		try {

@@ -12,18 +12,41 @@ public class AppliEmprunt {
 	final static String HOST = "localhost";
 	
 	public static void main(String[] args) throws IOException {
+		BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
 		
-		Socket socket = new Socket(HOST, PORT_EMPRUNT);
+		Socket socket = null;
+		try {
+			socket = new Socket(HOST, PORT_EMPRUNT);
+			BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+			PrintWriter sout = new PrintWriter(socket.getOutputStream(), true); 
+			
+			System.out.println("Connecte au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
+			
+			String line = sin.readLine();
+			System.out.println(line);
+			
+			line = clavier.readLine();
+			sout.println(line);
+			
+			line = sin.readLine();
+			System.out.println(line);
+			
+			line = clavier.readLine();
+			sout.println();
+			
+			System.out.println(sin.readLine());
+			socket.close();
+			
+		}catch(IOException e) {
+			System.out.println("Fin du service");
+		}
 		
-		BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream()));
-		PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
+		try {
+			if(socket != null) {
+				socket.close();
+			}
+		}
+		catch(IOException e2) {}
 		
-<<<<<<< HEAD
-		System.out.println("Connecté au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
-		
-		sout.println("");
-=======
-		System.out.println("Connecte au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
->>>>>>> 9d245e3d41f85d4dd5f7eacdfaf94b5269360c59
 	}
 }
