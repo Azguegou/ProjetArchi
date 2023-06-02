@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import connect.BDD;
 import mediatheque.Abonne;
 import mediatheque.Document;
+import mediatheque.Emprunt;
 
 public class ServiceEmprunt extends Service {
 	

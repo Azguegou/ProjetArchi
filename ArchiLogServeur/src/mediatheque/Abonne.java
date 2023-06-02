@@ -1,6 +1,7 @@
 package mediatheque;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Abonne {
 
@@ -8,12 +9,12 @@ public class Abonne {
 	
 	public String nom;
 	
-	public Date date;
+	public Date dateNaissance;
 	
 	public Abonne(int numero, String nom, Date date) {
 		this.id = numero;
 		this.nom = nom;
-		this.date = date;
+		this.dateNaissance = date;
 	}
 
 	public int getNumeroAbo() {
@@ -21,4 +22,11 @@ public class Abonne {
 		return this.id;
 	}
 
+	public boolean isMajeur() {
+		LocalDate now = LocalDate.now();
+        LocalDate dateNaissanceLocal = dateNaissance.toLocalDate();
+        LocalDate dateMajeure = dateNaissanceLocal.plusYears(16);
+        
+        return dateMajeure.isBefore(now) || dateMajeure.isEqual(now);
+	}
 }
