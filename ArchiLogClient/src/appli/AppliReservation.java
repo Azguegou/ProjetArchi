@@ -21,12 +21,13 @@ public class AppliReservation {
 			PrintWriter sout = new PrintWriter(socket.getOutputStream(), true); 
 			
 			System.out.println("Connecte au serveur : " + socket.getInetAddress() + " au port : " + socket.getPort());
-			
-			System.out.println(sin.readLine());
-		
+					
+			int nbTitres = Integer.parseInt(sin.readLine());
 			String line;
-			line = sin.readLine();
-			System.out.println(line);
+			for (int i = 0; i < nbTitres; ++i) {
+				line = sin.readLine();
+				System.out.println(line);
+			}
 			
 			//Numero d'abonné
 			line = clavier.readLine();
@@ -41,7 +42,8 @@ public class AppliReservation {
 			
 			System.out.println(sin.readLine());
 			socket.close();
-			
+			sin.close();
+			sout.close();
 		}catch(IOException e) {
 			System.out.println("Fin du service");
 		}

@@ -92,7 +92,7 @@ DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE IF NOT EXISTS `reservation` (
   `numeroAbo` int NOT NULL,
   `numeroDoc` int NOT NULL,
-  `dateRes` date NOT NULL,
+  `dateRes` bigint NOT NULL,
   KEY `FK_num_abo` (`numeroAbo`),
   KEY `FK_num_doc` (`numeroDoc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

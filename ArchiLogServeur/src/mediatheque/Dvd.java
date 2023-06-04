@@ -1,8 +1,7 @@
 package mediatheque;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import connect.BDD;
@@ -72,25 +71,62 @@ public class Dvd implements Document {
 
 	@Override
 	public Abonne reservePar() {
-		return null;
-	}
+		Abonne abo = null;
+		if (!Service.isDisponible(this)) {
+			for(Reservation e : Service.getReservations()) {
+				if (e.numeroDoc == this.numero()) {
+					abo = Service.getAbonne(e.numeroAbo);
+				}
+			}
+		}
+		else {
+			System.out.println("Ce DVD n'est pas réservé.");
+		}
+		return abo;	}
 
 	@Override
-	public void reservation(Abonne ab) {		
-	}
-
-	@Override
-	public void emprunt(Abonne ab) {
+	public void reservation(Abonne ab) {	
+		long today = System.currentTimeMillis();
 		if (!adultFilm || (adultFilm && ab.isMajeur())) {
 			if (Service.isDisponible(this)) {
 				try {
 					Connection conn = BDD.getConnection();
+					conn.prepareStatement("INSERT INTO reservation(numeroAbo, numeroDoc, dateRes) VALUES ("+ ab.getNumeroAbo() +", "+ this.numero() + ", " + today + ")").execute();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				Reservation r = new Reservation(ab.getNumeroAbo(), this.numero(), today);
+				Service.getReservations().add(r);
+			}
+			else {
+				System.out.println("Ce DVD n'est pas disponible.");
+			}
+		}
+		else {
+			System.out.println("L'abonné n'a pas l'âge de réserver ce DVD");
+		}
+	}
+
+	@Override
+	public void emprunt(Abonne ab) {
+		Connection conn = null;
+		if (!adultFilm || (adultFilm && ab.isMajeur())) {
+			if (Service.isDisponible(this) || this.reservePar() == ab) {
+				try {
+					conn = BDD.getConnection();
 					conn.prepareStatement("INSERT INTO emprunt(numeroAbo, numeroDoc) VALUES ("+ ab.getNumeroAbo() +", "+ this.numero() +")").execute();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
 				Emprunt e = new Emprunt(ab.getNumeroAbo(), this.numero());
 				Service.getEmprunts().add(e);
+				if (this.reservePar() == ab) {
+					try {
+						conn.prepareStatement("DELETE FROM reservation WHERE numeroDoc = " + this.numeroDoc).execute();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 			else {
 				System.out.println("Ce DVD n'est pas disponible.");

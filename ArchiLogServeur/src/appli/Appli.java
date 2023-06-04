@@ -68,10 +68,9 @@ public class Appli {
 		}
 		System.out.println("\n");
 		while (rs_4.next()) {
-			System.out.println("Abonne " + rs_4.getInt(1) + " a réservé " + rs_4.getInt(2) + " " + rs_4.getDate(3));
-			Reservation resa = new Reservation(rs_4.getInt(1), rs_4.getInt(2), rs_4.getDate(3));
-			Service.getDocument(resa.numeroDoc).reservation(Service.getAbonne(resa.numeroAbo));
-			resas.add(resa);
+			System.out.println("Abonne " + rs_4.getInt(1) + " a réservé " + rs_4.getInt(2));
+			Reservation resa = new Reservation(rs_4.getInt(1), rs_4.getInt(2), rs_4.getLong(3));
+			Service.getReservations().add(resa);
 		}
 		System.out.println("\n");
 		Service.setData(docs, abos, emprunts, resas);

@@ -2,6 +2,7 @@ package serveur;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Date;
 import java.util.List;
 
 import mediatheque.Abonne;
@@ -19,6 +20,12 @@ public abstract class Service implements Runnable{
 	public Service(Socket client) {
 		this.client = client;
 	}
+	
+	public static boolean estPlusDeDeuxHeures(long date) {
+        long differenceEnMillis = System.currentTimeMillis() - date;
+        long differenceEnHeures = differenceEnMillis / (60 * 60 * 1000);
+        return differenceEnHeures > 2;
+    }
 	
 	public static void setData(List<Document> listeDocs, List<Abonne> listeAbos, List<Emprunt> emprunts, List<Reservation> reservations) {
 		Service.docs = listeDocs;
@@ -90,13 +97,12 @@ public abstract class Service implements Runnable{
 			}
 		}
 		for(Reservation r: resas) {
-			if (r.numeroDoc == doc.numero()) {
+			if (r.numeroDoc == doc.numero() && (!estPlusDeDeuxHeures(r.dateRes))) {
 				boo = false;
 			}
 		}
 		return boo;
 	}
-	
 	
 	@Override
 	public abstract void run();
