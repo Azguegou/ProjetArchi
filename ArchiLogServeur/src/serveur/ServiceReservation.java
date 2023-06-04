@@ -22,7 +22,6 @@ public class ServiceReservation extends Service {
 	public void run() {
 		String reponse = null;
 		try {
-			//note : ne pas oublier le getInputStream
 			BufferedReader in = new BufferedReader(new InputStreamReader(this.getSocket().getInputStream()));
 			PrintStream out = new PrintStream(super.getSocket().getOutputStream());
 			

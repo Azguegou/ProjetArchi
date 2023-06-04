@@ -22,6 +22,8 @@ public class ServiceEmprunt extends Service {
 	@Override
 	public void run() {
 		String reponse = null;
+		Abonne abo = null;
+		Document doc = null;
 		try {
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(this.getSocket().getInputStream()));
@@ -33,22 +35,28 @@ public class ServiceEmprunt extends Service {
 			out.println("Entrez le numero du document a reserver : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
-			Abonne abo = this.getAbonne(numeroAbo);
-			Document doc = this.getDocument(numeroDoc);
+			try {
+				abo = Service.getAbonne(numeroAbo);
+				doc = Service.getDocument(numeroDoc);
+			}
+			catch (Exception e) {
+				throw new NullPointerException();
+			}
 			
-			if(abo != null) {
-				if(doc != null) {
-					doc.emprunt(abo);
-				}
-				else {
-					reponse = "Document non existant";
-				}
+			synchronized(doc) {
+				doc.emprunt(abo);
+			}
+			
+			if (doc.empruntePar().equals(abo)) {
+				reponse = abo.nom + " a emprunté \"" + doc.toString() + "\".";
 			}
 			else {
-				reponse = "Abonne inexistant";
+				reponse = "Le DVD n'est pas disponible.";
 			}
-			System.out.println(reponse);
+			
 			out.println(reponse);
+			in.close();
+			out.close();
 		}
 		catch(IOException e) {}
 		
