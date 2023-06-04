@@ -40,7 +40,18 @@ public class Dvd implements Document {
 	@Override
 	public void retour() {
 		if (!disponible) {
-			Service.getEmprunts().removeIf(empr -> empr.numeroDoc == numero());
+			for(Emprunt e : Service.getEmprunts()) {
+				if (e.numeroDoc == this.numero()) {
+					try {
+						Connection conn = BDD.getConnection();
+						conn.prepareStatement("DELETE emprunt WHERE numeroDoc = " + this.numeroDoc).execute();
+					}
+					catch (Exception exc) {
+						throw new NullPointerException();
+					}
+				}
+			}
+			Service.getEmprunts().removeIf(empr -> empr.numeroDoc == this.numero());
 		}
 		else {
 			System.out.println("Ce DVD n'est pas emprunté.");
@@ -53,14 +64,7 @@ public class Dvd implements Document {
 		if (!disponible) {
 			for(Emprunt e : Service.getEmprunts()) {
 				if (e.numeroDoc == this.numero()) {
-					try {
-						Connection conn = BDD.getConnection();
-						conn.prepareStatement("DELETE emprunt WHERE numeroDoc = " + this.numeroDoc).execute();
-						abo = Service.getAbonne(e.numeroAbo);
-					}
-					catch (Exception exc) {
-						throw new NullPointerException();
-					}
+					abo = Service.getAbonne(e.numeroAbo);
 				}
 			}
 		}
@@ -90,9 +94,9 @@ public class Dvd implements Document {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				this.disponible = false;
 				Emprunt e = new Emprunt(ab.getNumeroAbo(), this.numero());
 				Service.getEmprunts().add(e);
+				this.disponible = false;
 			}
 			else {
 				System.out.println("Ce DVD n'est pas disponible.");

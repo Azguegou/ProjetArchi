@@ -35,7 +35,7 @@ public class ServiceRetour extends Service {
 			else {
 				reponse = "Document inexistant";
 			}
-			System.out.println(reponse);
+			out.println(reponse);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

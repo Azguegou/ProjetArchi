@@ -32,7 +32,7 @@ public class ServiceEmprunt extends Service {
 			out.println("Entrez votre numero d'abonne : ");
 			int numeroAbo = Integer.parseInt(in.readLine());
 			
-			out.println("Entrez le numero du document a  reserver : ");
+			out.println("Entrez le numero du document a reserver : ");
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
 			try {
