@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connect.BDD;
+import serveur.Service;
 
 public class Dvd implements Document {
 
@@ -38,12 +39,35 @@ public class Dvd implements Document {
 
 	@Override
 	public void retour() {
-
+		if (!disponible) {
+			Service.getEmprunts().removeIf(empr -> empr.numeroDoc == numero());
+		}
+		else {
+			System.out.println("Ce DVD n'est pas emprunté.");
+		}
 	}
 
 	@Override
 	public Abonne empruntePar() {
-		return null;
+		Abonne abo = null;
+		if (!disponible) {
+			for(Emprunt e : Service.getEmprunts()) {
+				if (e.numeroDoc == this.numero()) {
+					try {
+						Connection conn = BDD.getConnection();
+						conn.prepareStatement("DELETE emprunt WHERE numeroDoc = " + this.numeroDoc).execute();
+						abo = Service.getAbonne(e.numeroAbo);
+					}
+					catch (Exception exc) {
+						throw new NullPointerException();
+					}
+				}
+			}
+		}
+		else {
+			System.out.println("Ce DVD n'est pas emprunté.");
+		}
+		return abo;
 	}
 
 	@Override
@@ -58,31 +82,34 @@ public class Dvd implements Document {
 	@Override
 	public void emprunt(Abonne ab) {
 		if (!adultFilm || (adultFilm && ab.isMajeur())) {
-		try {
-			Connection conn = BDD.getConnection();
-			PreparedStatement request = conn.prepareStatement("INSERT INTO emprunt(numeroAbo, numeroDoc) VALUES ("+ ab.getNumeroAbo() +", "+ this.numero() +")");
-			ResultSet rs = request.executeQuery();
-		
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		
-		Emprunt e = new Emprunt(ab.getNumeroAbo(), this.numero());
+			if (disponible) {
+				try {
+					Connection conn = BDD.getConnection();
+					conn.prepareStatement("INSERT INTO emprunt(numeroAbo, numeroDoc) VALUES ("+ ab.getNumeroAbo() +", "+ this.numero() +")").execute();
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				this.disponible = false;
+				Emprunt e = new Emprunt(ab.getNumeroAbo(), this.numero());
+				Service.getEmprunts().add(e);
+			}
+			else {
+				System.out.println("Ce DVD n'est pas disponible.");
+			}
 		}
 		else {
 			System.out.println("L'abonné n'a pas l'âge d'emprunter ce DVD");
 		}
 	}
 	
-	public String getTitre() {
-		return this.titre;
-	}
-	
+	@Override
 	public String toString() {
-		String str = "Numero de document : " + this.numeroDoc + ", titre : " + this.titre + ", catégorie adulte ? : ";
-		if(this.adultFilm) str += " Oui";
-		else str += " Non";
-		return str;
+		// String str = "Numero de document : " + this.numeroDoc + ", titre : " + this.titre + ", catégorie adulte ? : ";
+		// if(this.adultFilm) str += " Oui";
+		// else str += " Non";
+		// return str;
+		return this.titre;
 	}
 	
 	public boolean isAdult() {

@@ -52,33 +52,36 @@ public class Appli {
 			System.out.println(rs_1.getInt(1) + " " + rs_1.getString(2) + " " + rs_1.getDate(3));
 			abos.add(new Abonne(rs_1.getInt(1), rs_1.getString(2), rs_1.getDate(3)));
 		}
-
+		System.out.println("\n");
 		while (rs_2.next()) {
 			System.out.println(rs_2.getInt(1) + " " + rs_2.getString(2) + " " + rs_2.getBoolean(3));
 			docs.add(new Dvd(rs_2.getInt(1), rs_2.getString(2), rs_2.getBoolean(3)));
 		}
-		
+		System.out.println("\n");
 		while (rs_3.next()) {
-			System.out.println(rs_3.getInt(1) + " " + rs_3.getInt(2));
+			System.out.println("Abonne " + rs_3.getInt(1) + " a emprunté " + rs_3.getInt(2));
 			emprunts.add(new Emprunt(rs_3.getInt(1), rs_3.getInt(2)));
 		}
-		
+		System.out.println("\n");
 		while (rs_4.next()) {
-			System.out.println(rs_4.getInt(1) + " " + rs_4.getInt(2) + " " + rs_4.getDate(3));
+			System.out.println("Abonne " + rs_4.getInt(1) + " a réservé " + rs_4.getInt(2) + " " + rs_4.getDate(3));
 			resas.add(new Reservation(rs_4.getInt(1), rs_4.getInt(2), rs_4.getDate(3)));
 		}
-		
-		requ1.close();
-		requ2.close();
-		requ3.close();
-		requ4.close();
-		conn.close();
-
+		System.out.println("\n");
 		Service.setData(docs, abos, emprunts, resas);
 
 		new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
 		new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
 		new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
+		
+		requ1.close();
+		requ2.close();
+		requ3.close();
+		requ4.close();
+		rs_1.close();
+		rs_2.close();
+		rs_3.close();
+		rs_4.close();
 	}
 
 }

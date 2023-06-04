@@ -28,7 +28,7 @@ public abstract class Service implements Runnable{
 
 	}
 	
-	public Document getDocument(int numeroDoc) {
+	public static Document getDocument(int numeroDoc) {
 		for(Document document : docs) {
 			if(document.numero() == numeroDoc) {
 				return document;
@@ -37,11 +37,11 @@ public abstract class Service implements Runnable{
 		return null;
 	}
 	
-	public List<Document> getDocuments() {
+	public static List<Document> getDocuments() {
 		return docs;
 	}
 	
-	public Abonne getAbonne(int numeroAbo) {
+	public static Abonne getAbonne(int numeroAbo) {
 		for(Abonne abo : abos) {
 			if(abo.getNumeroAbo() == numeroAbo) {
 				return abo;
@@ -50,11 +50,11 @@ public abstract class Service implements Runnable{
 		return null;
 	}
 	
-	public List<Abonne> getAbonnes() {
+	public static List<Abonne> getAbonnes() {
 		return abos;
 	}
 	
-	public Emprunt getEmprunt(int numeroAbo, int numeroDoc) {
+	public static Emprunt getEmprunt(int numeroAbo, int numeroDoc) {
 		for(Emprunt emprunt: emprunts) {
 			if(emprunt.numeroAbo == numeroAbo && emprunt.numeroDoc == numeroDoc) {
 				return emprunt;
@@ -63,11 +63,11 @@ public abstract class Service implements Runnable{
 		return null;
 	}
 	
-	public List<Emprunt> getEmprunts() {
+	public static List<Emprunt> getEmprunts() {
 		return emprunts;
 	}
 	
-	public Reservation getReservation(int numeroAbo, int numeroDoc) {
+	public static Reservation getReservation(int numeroAbo, int numeroDoc) {
 		for(Reservation resa: reservations) {
 			if(resa.numeroAbo == numeroAbo && resa.numeroDoc == numeroDoc) {
 				return resa;
@@ -76,7 +76,7 @@ public abstract class Service implements Runnable{
 		return null;
 	}
 	
-	public List<Reservation> getReservations() {
+	public static List<Reservation> getReservations() {
 		return reservations;
 	}
 	

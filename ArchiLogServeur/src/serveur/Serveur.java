@@ -23,7 +23,6 @@ public class Serveur implements Runnable {
 	@Override
 	public void run(){
 		try {
-			System.err.println("Lancement du serveur au port " + this.listen_socket.getLocalPort());
 			while(true) {
 				try {
 					new Thread(classeService.getConstructor(Socket.class).newInstance(listen_socket.accept())).start();

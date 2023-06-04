@@ -13,6 +13,7 @@ public class AppliEmprunt {
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+		boolean stop = false;
 		
 		Socket socket = null;
 		try {
@@ -32,9 +33,11 @@ public class AppliEmprunt {
 			System.out.println(line);
 			
 			line = clavier.readLine();
-			sout.println();
+			sout.println(line);
 			
-			System.out.println(sin.readLine());
+			line = sin.readLine();
+			System.out.println(line);
+			
 			socket.close();
 			
 		}catch(IOException e) {
