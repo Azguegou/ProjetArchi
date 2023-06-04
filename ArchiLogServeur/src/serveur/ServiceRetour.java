@@ -28,14 +28,17 @@ public class ServiceRetour extends Service {
 			Document doc = this.getDocument(numeroDoc);
 			
 			if(doc != null) {
-				//renvoyer ce document dans la liste --> methode a coder dans DVD : retour()
-				doc.retour();
+				synchronized(doc) {
+					doc.retour();
+				}
 				reponse = "Document rendu";
 			}
 			else {
 				reponse = "Document inexistant";
 			}
 			out.println(reponse);
+			out.close();
+			in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

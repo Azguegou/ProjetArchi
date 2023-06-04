@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import connect.BDD;
 import mediatheque.Abonne;
@@ -29,10 +30,10 @@ public class Appli {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
-		List<Document> docs = new ArrayList<Document>();
-		List<Abonne> abos = new ArrayList<Abonne>();
-		List<Emprunt> emprunts = new ArrayList<Emprunt>();
-		List<Reservation> resas = new ArrayList<Reservation>();
+		List<Document> docs = new CopyOnWriteArrayList<Document>();
+		List<Abonne> abos = new CopyOnWriteArrayList<Abonne>();
+		List<Emprunt> emprunts = new CopyOnWriteArrayList<Emprunt>();
+		List<Reservation> resas = new CopyOnWriteArrayList<Reservation>();
 		Connection conn = BDD.getConnection();
 		String rStr_1 = "SELECT * FROM abonne";
 		String rStr_2 = "SELECT * FROM dvd";
@@ -57,15 +58,20 @@ public class Appli {
 			System.out.println(rs_2.getInt(1) + " " + rs_2.getString(2) + " " + rs_2.getBoolean(3));
 			docs.add(new Dvd(rs_2.getInt(1), rs_2.getString(2), rs_2.getBoolean(3)));
 		}
+		Service.setData(docs, abos, emprunts, resas);
+
 		System.out.println("\n");
 		while (rs_3.next()) {
 			System.out.println("Abonne " + rs_3.getInt(1) + " a emprunté " + rs_3.getInt(2));
-			emprunts.add(new Emprunt(rs_3.getInt(1), rs_3.getInt(2)));
+			Emprunt e = new Emprunt(rs_3.getInt(1), rs_3.getInt(2));
+			Service.getEmprunts().add(e);
 		}
 		System.out.println("\n");
 		while (rs_4.next()) {
 			System.out.println("Abonne " + rs_4.getInt(1) + " a réservé " + rs_4.getInt(2) + " " + rs_4.getDate(3));
-			resas.add(new Reservation(rs_4.getInt(1), rs_4.getInt(2), rs_4.getDate(3)));
+			Reservation resa = new Reservation(rs_4.getInt(1), rs_4.getInt(2), rs_4.getDate(3));
+			Service.getDocument(resa.numeroDoc).reservation(Service.getAbonne(resa.numeroAbo));
+			resas.add(resa);
 		}
 		System.out.println("\n");
 		Service.setData(docs, abos, emprunts, resas);

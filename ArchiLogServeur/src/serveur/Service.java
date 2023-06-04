@@ -80,6 +80,23 @@ public abstract class Service implements Runnable{
 		return reservations;
 	}
 	
+	public static boolean isDisponible(Document doc) {
+		boolean boo = true;
+		List<Emprunt> emprunts = Service.getEmprunts();
+		List<Reservation> resas = Service.getReservations();
+		for(Emprunt e: emprunts) {
+			if(e.numeroDoc == doc.numero()) {
+				boo = false;
+			}
+		}
+		for(Reservation r: resas) {
+			if (r.numeroDoc == doc.numero()) {
+				boo = false;
+			}
+		}
+		return boo;
+	}
+	
 	
 	@Override
 	public abstract void run();

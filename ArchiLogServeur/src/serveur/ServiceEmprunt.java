@@ -36,14 +36,16 @@ public class ServiceEmprunt extends Service {
 			int numeroDoc = Integer.parseInt(in.readLine());
 			
 			try {
-				abo = this.getAbonne(numeroAbo);
-				doc = this.getDocument(numeroDoc);
+				abo = Service.getAbonne(numeroAbo);
+				doc = Service.getDocument(numeroDoc);
 			}
 			catch (Exception e) {
 				throw new NullPointerException();
 			}
-
-			doc.emprunt(abo);
+			
+			synchronized(doc) {
+				doc.emprunt(abo);
+			}
 			
 			if (doc.empruntePar().equals(abo)) {
 				reponse = abo.nom + " a emprunté \"" + doc.toString() + "\".";
