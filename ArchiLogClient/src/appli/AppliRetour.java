@@ -31,8 +31,10 @@ public class AppliRetour {
 			
 			line = sin.readLine();
 			System.out.println(line);
-			
-			System.out.println(sin.readLine());
+
+			clavier.close();
+			sout.close();
+			sin.close();
 			socket.close();
 			
 		}catch(IOException e) {
